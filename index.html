@@ -10,33 +10,44 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--text)}
 
-header{position:fixed;top:0;left:0;right:0;padding:15px 40px;display:flex;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(255,255,255,0.7);z-index:1000}
+header{position:fixed;top:0;left:0;right:0;padding:15px 40px;display:flex;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(255,255,255,0.8);z-index:1000}
 .logo{font-weight:600}
 
 .cart{position:fixed;right:20px;top:20px;border:1px solid #111;padding:10px 15px;border-radius:30px;cursor:pointer}
 
-/* HERO */
+.telegram-btn{
+ position:fixed;
+ bottom:20px;
+ right:20px;
+ background:#0088cc;
+ color:#fff;
+ padding:12px 18px;
+ border-radius:30px;
+ text-decoration:none;
+ font-size:14px;
+ box-shadow:0 10px 25px rgba(0,0,0,0.2);
+ transition:.3s;
+}
+.telegram-btn:hover{transform:scale(1.05)}
+
 .hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
 .hero h1{font-size:64px}
 .hero p{color:var(--sub);margin-top:10px}
 .hero img{width:600px;margin-top:40px;transition:.5s}
 .hero img:hover{transform:scale(1.05)}
 
-/* HORIZONTAL SHOWCASE */
 .showcase{display:flex;gap:20px;padding:40px;overflow-x:auto}
 .showcase::-webkit-scrollbar{display:none}
 .item{min-width:220px;padding:20px;border-radius:20px;background:#f5f5f7;text-align:center;cursor:pointer;transition:.3s}
 .item:hover{transform:scale(1.05)}
 .item img{width:120px;margin-bottom:10px}
 
-/* SECTIONS */
 .section{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
 .section h2{font-size:52px}
 .section p{color:var(--sub)}
 .section img{width:600px;margin-top:30px;transition:.5s}
 .section img:hover{transform:scale(1.05)}
 
-/* PRODUCTS GRID */
 .products{padding:100px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px}
 .card{text-align:center;transition:.3s}
 .card:hover{transform:translateY(-10px)}
@@ -61,6 +72,8 @@ header{position:fixed;top:0;left:0;right:0;padding:15px 40px;display:flex;justif
 
 <div class="cart" onclick="toggleCart()">Корзина (<span id="cart-count">0</span>)</div>
 
+<a class="telegram-btn" href="https://t.me/macsfera_apple" target="_blank">Написать в Telegram</a>
+
 <section class="hero fade">
  <h1>iPhone 17 Pro</h1>
  <p>Технологии, которые опережают время</p>
@@ -68,7 +81,6 @@ header{position:fixed;top:0;left:0;right:0;padding:15px 40px;display:flex;justif
  <div class="btn" onclick="addToCart('iPhone 17 Pro',1499)">Купить</div>
 </section>
 
-<!-- HORIZONTAL SHOWCASE -->
 <div class="showcase fade">
  <div class="item"><img src="REPLACE1"><div>17 Pro Max</div></div>
  <div class="item"><img src="REPLACE2"><div>17 Pro</div></div>
@@ -96,7 +108,25 @@ header{position:fixed;top:0;left:0;right:0;padding:15px 40px;display:flex;justif
  <h2>Корзина</h2>
  <div id="cart-items"></div>
  <h3 id="total"></h3>
+ <div class="btn" onclick="checkout()">Оформить заказ</div>
 </div>
+
+<footer style="padding:60px 40px;border-top:1px solid #eee;margin-top:60px">
+ <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between">
+  <div>
+   <div style="font-weight:600">МакСфера</div>
+   <div style="color:#6e6e73">Магазин техники Apple</div>
+  </div>
+  <div style="color:#6e6e73">
+   +7 (928) 882-24-68<br>
+   @macsfera_apple
+  </div>
+ </div>
+ <div style="text-align:center;color:#6e6e73;margin-top:20px;font-size:13px">
+   Информация не является публичной офертой
+ </div>
+ <div style="text-align:center;color:#6e6e73;margin-top:10px">© 2026 МакСфера</div>
+</footer>
 
 <script>
 let cart=[];
@@ -127,8 +157,7 @@ function addToCart(name,price){
 
 function updateCart(){
  document.getElementById('cart-count').innerText=cart.length;
- let total=0;
- let html='';
+ let total=0;let html='';
  cart.forEach(i=>{total+=i.price;html+=`<p>${i.name}</p>`});
  document.getElementById('cart-items').innerHTML=html;
  document.getElementById('total').innerText='€'+total;
@@ -136,6 +165,10 @@ function updateCart(){
 
 function toggleCart(){
  document.getElementById('cart-panel').classList.toggle('open');
+}
+
+function checkout(){
+ window.open('https://t.me/macsfera_apple','_blank');
 }
 
 const observer=new IntersectionObserver(entries=>{
